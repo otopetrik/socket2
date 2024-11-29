@@ -250,7 +250,7 @@ pub(crate) fn socket(family: c_int, mut ty: c_int, protocol: c_int) -> io::Resul
     // Check if we set our custom flag.
     let flags = if ty & Type::NO_INHERIT != 0 {
         ty = ty & !Type::NO_INHERIT;
-        WSA_FLAG_NO_HANDLE_INHERIT
+        0//WSA_FLAG_NO_HANDLE_INHERIT
     } else {
         0
     };
@@ -403,7 +403,7 @@ pub(crate) fn try_clone(socket: Socket) -> io::Result<Socket> {
             info.iProtocol,
             &mut info,
             0,
-            WSA_FLAG_OVERLAPPED | WSA_FLAG_NO_HANDLE_INHERIT,
+            WSA_FLAG_OVERLAPPED | 0 //WSA_FLAG_NO_HANDLE_INHERIT,
         ),
         PartialEq::eq,
         INVALID_SOCKET
